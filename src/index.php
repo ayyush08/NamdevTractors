@@ -1,35 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php include('./includes/header.php'); ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TractorTrove</title>
-    <link rel="stylesheet" href="output.css">
-    <style>
-        .sticky-nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(29, 78, 216, 0.9);
-            backdrop-filter: blur(10px);
-        }
-    </style>
-</head>
-
-<body class="bg-transparent h-[120vh]">
-    <nav class="sticky-nav flex justify-between items-center p-5  shadow-lg">
-        <h1 class="text-3xl font-extrabold text-white">TractorTrove</h1>
-        <ul class="flex gap-6 font-semibold text-white text-xl px-6">
-            <li class="hover:text-gray-300 cursor-pointer transition">Home</li>
-            <li class="hover:text-gray-300 cursor-pointer transition">Explore Tractors</li>
-
-            <li class="hover:text-gray-300 cursor-pointer transition">About Us</li>
-            <li class="hover:text-gray-300 cursor-pointer transition">Contact Us</li>
-        </ul>
-    </nav>
-    
-    <section id="home" class="bg-blue-500 px-10 text-white py-20 md:p-20 h-[70vh]">
+<!-- Main Content (Your Sections Here) -->
+<section id="home" class="bg-blue-500 px-10 text-white py-20 md:p-20 h-[70vh]">
         <div class="container mx-auto px-4 sm:px-6 gap-6 flex flex-col md:flex-row items-center">
             <div class="md:w-1/2 mb-8 md:mb-0">
                 <h1 class="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
@@ -41,7 +13,7 @@
                     Now</a>
             </div>
             <div class="w-1/2 flex justify-center">
-                <img src="/sampleimage2.webp" alt="Modern Tractor"
+                <img src="./assets/sampleimage2.webp" alt="Modern Tractor"
                     class="rounded-lg shadow-2xl w-full h-full mx-auto hover:scale-105 transition-transform duration-300">
             </div>
         </div>
@@ -78,20 +50,6 @@
         </div>
     </section>
 
-    <footer class="bg-blue-800 text-white py-8">
-        <div class="container mx-auto text-center">
-            <p class="text-sm">&copy; 2025 TractorTrove. All rights reserved.</p>
-            <div class="mt-4">
-                <a href="#" class="text-white mx-4">Privacy Policy</a>
-                <a href="#" class="text-white mx-4">Terms of Service</a>
-                <a href="#" class="text-white mx-4">Contact Us</a>
-            </div>
-        </div>
-    </footer>
+<!-- Add other sections here as needed -->
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
-
-</body>
-
-</html>
+<?php include('./includes/footer.php'); ?>
