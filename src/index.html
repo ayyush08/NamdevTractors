@@ -6,40 +6,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TractorTrove</title>
     <link rel="stylesheet" href="output.css">
+    <style>
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(29, 78, 216, 0.9);
+            backdrop-filter: blur(10px);
+        }
+    </style>
 </head>
 
-<body>
-    <nav class="bg-blue-500/80 sticky flex justify-between  p-5 items-center">
-        <h1 class="text-4xl font-extrabold text-white">TractorTrove</h1>
-        <ul class="flex gap-4 font-semibold text-white text-xl">
-            <li class="">
-                Something
-            </li>
-            <li>
-                Something
-            </li>
-            <li>
-                Something
-            </li>
+<body class="bg-transparent h-[120vh]">
+    <nav class="sticky-nav flex justify-between items-center p-5  shadow-lg">
+        <h1 class="text-3xl font-extrabold text-white">TractorTrove</h1>
+        <ul class="flex gap-6 font-semibold text-white text-xl px-6">
+            <li class="hover:text-gray-300 cursor-pointer transition">Home</li>
+            <li class="hover:text-gray-300 cursor-pointer transition">Explore Tractors</li>
+
+            <li class="hover:text-gray-300 cursor-pointer transition">About Us</li>
+            <li class="hover:text-gray-300 cursor-pointer transition">Contact Us</li>
         </ul>
     </nav>
-    <section id="home" class="bg-blue-500 px-5 text-white py-12 md:p-20 ">
-        <div class="container mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center">
+    
+    <section id="home" class="bg-blue-500 px-10 text-white py-20 md:p-20 h-[70vh]">
+        <div class="container mx-auto px-4 sm:px-6 gap-6 flex flex-col md:flex-row items-center">
             <div class="md:w-1/2 mb-8 md:mb-0">
-                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-                    Revolutionize Your Farm with TractorTech</h1>
+                <h1 class="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+                    Revolutionize Your Farm with TractorTrove</h1>
                 <p class="text-lg sm:text-xl mb-6 sm:mb-8">Experience the future of farming with our cutting-edge
                     tractors and agricultural solutions.</p>
                 <a href="#contact"
-                    class="bg-white text-blue-600 py-2 px-6 sm:py-3 sm:px-8 rounded-full font-bold hover:bg-blue-100 transition duration-300 transform hover:scale-105 inline-block">Explore
+                    class="bg-white text-blue-600 py-3 px-8 rounded-full font-bold hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 inline-block shadow-lg ">Explore
                     Now</a>
             </div>
-            <div class="md:w-1/2">
-                <img src="/placeholder.svg?height=400&width=600" alt="Modern Tractor"
-                    class="float rounded-lg shadow-2xl w-full max-w-md mx-auto">
+            <div class="w-1/2 flex justify-center">
+                <img src="/sampleimage2.webp" alt="Modern Tractor"
+                    class="rounded-lg shadow-2xl w-full h-full mx-auto hover:scale-105 transition-transform duration-300">
             </div>
         </div>
     </section>
+    <section id="features" class="py-16 px-6 bg-blue-500/20 text-gray-800">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-6">Why Choose TractorTrove?</h2>
+            <p class="text-lg mb-12">Discover the benefits of our cutting-edge tractors designed for efficiency and performance.</p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="px-10 py-8 shadow-lg rounded-lg hover:shadow-xl transition bg-white">
+                    <i class="fa-solid fa-gauge-high text-blue-600 text-5xl mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-3">High Efficiency</h3>
+                    <p>Maximize your productivity with our state-of-the-art engine technology.</p>
+                </div>
+                <div class="px-10 py-8 shadow-lg rounded-lg hover:shadow-xl transition bg-white">
+                    <i class="fa-solid fa-shield text-blue-600 text-5xl mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Built to Last</h3>
+                    <p>Our tractors are designed with durability in mind to withstand any terrain.</p>
+                </div>
+                <div class="px-12 py-10 shadow-lg rounded-lg hover:shadow-xl transition bg-white">
+                    <i class="fa-solid fa-microchip text-blue-600 text-5xl mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Innovative Technology</h3>
+                    <p>Experience smart farming with advanced GPS and automation features.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="cta" class="bg-blue-500 py-16 text-white text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold mb-6">Ready to Revolutionize Your Farm?</h2>
+            <p class="text-lg mb-8">Join the future of farming with our advanced tractors and solutions. Get started today!</p>
+            <a href="#contact"
+                class="bg-white text-blue-600 py-2 px-6 sm:py-3 sm:px-8 rounded-full font-bold hover:bg-blue-100 transition duration-300 transform hover:scale-105 inline-block">Get Started</a>
+        </div>
+    </section>
+
+    <footer class="bg-blue-800 text-white py-8">
+        <div class="container mx-auto text-center">
+            <p class="text-sm">&copy; 2025 TractorTrove. All rights reserved.</p>
+            <div class="mt-4">
+                <a href="#" class="text-white mx-4">Privacy Policy</a>
+                <a href="#" class="text-white mx-4">Terms of Service</a>
+                <a href="#" class="text-white mx-4">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+
 </body>
 
 </html>
