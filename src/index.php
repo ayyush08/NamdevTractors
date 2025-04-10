@@ -6,7 +6,7 @@ include './db/db.php'; // Include database connection
 
 
 try {
-    $stmt = $pdo->query("SELECT * FROM products");
+    $stmt = $pdo->query("SELECT * FROM tractors");
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Failed to fetch products: " . $e->getMessage());
@@ -90,15 +90,15 @@ try {
                         <!-- Display the first product -->
                         <?php $firstProduct = $products[0]; ?>
                         <div class="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-xl">
-                            <img id="product-image" src="<?= htmlspecialchars($firstProduct['image_url']) ?>"
+                            <img id="product-image" src="<?= htmlspecialchars($firstProduct['photo_url']) ?>"
                                 alt="<?= htmlspecialchars($firstProduct['name']) ?>" class="w-full h-full object-cover" />
                             <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
                                 <h3 id="product-name" class="text-2xl font-bold text-white mb-2">
                                     <?= htmlspecialchars($firstProduct['name']) ?>
                                 </h3>
                                 <p id="product-specs" class="text-white/90 mb-1">
-                                    <?= htmlspecialchars($firstProduct['power']) ?> |
-                                    <?= htmlspecialchars($firstProduct['category']) ?>
+                                    <?= htmlspecialchars($firstProduct['horsepower']) ?> Horsepower
+                                    
                                 </p>
                                 <p id="product-price" class="text-green-400 font-medium">
                                     <?= htmlspecialchars($firstProduct['price']) ?>
@@ -126,13 +126,13 @@ try {
                                             class="product-btn cursor-pointer p-4 rounded-lg border-2 transition-all <?= $index === 0 ? 'border-green-600 bg-green-50' : 'border-gray-200 hover:border-green-400' ?>"
                                             data-id="<?= htmlspecialchars($product['id']) ?>"
                                             data-name="<?= htmlspecialchars($product['name']) ?>"
-                                            data-category="<?= htmlspecialchars($product['category']) ?>"
-                                            data-power="<?= htmlspecialchars($product['power']) ?>"
-                                            data-image="<?= htmlspecialchars($product['image_url']) ?>"
+                                            data-brand="<?= htmlspecialchars($product['brand']) ?>"
+                                            data-power="<?= htmlspecialchars($product['horsepower']) ?>"
+                                            data-image="<?= htmlspecialchars($product['photo_url']) ?>"
                                             data-description="<?= htmlspecialchars($product['description']) ?>"
                                             data-price="<?= htmlspecialchars($product['price']) ?>">
                                             <h5 class="font-medium"><?= htmlspecialchars($product['name']) ?></h5>
-                                            <p class="text-sm text-gray-500"><?= htmlspecialchars($product['power']) ?></p>
+                                            <p class="text-sm text-gray-500">HP:<?= htmlspecialchars($product['horsepower']) ?></p>
                                         </button>
                                     <?php endforeach; ?>
                                 </div>
@@ -244,8 +244,8 @@ try {
                             </p>
                         </div>
                         <div class="flex justify-center lg:justify-end">
-                            <a href="#contact" class="btn-secondary bg-white text-green-600 hover:bg-gray-100">
-                                Get in Touch
+                            <a href="tractor-list.php" class="btn-secondary bg-white text-green-600 hover:bg-gray-100">
+                                Book Now
                             </a>
                         </div>
                     </div>
@@ -393,6 +393,9 @@ try {
                 }
             });
         });
+
+
+        
     </script>
 </body>
 

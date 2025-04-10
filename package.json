@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "twcli":"npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch --verbose"
+    "twcli":"npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch  "
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.0.14",

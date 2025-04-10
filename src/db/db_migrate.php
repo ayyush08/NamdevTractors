@@ -1,8 +1,7 @@
 <?php
 // Database migration script
-
 $host = 'localhost';
-$dbname = 'tractortrove'; // Replace with your database name
+$dbname = 'tractortrove';
 $username = 'root';
 $password = '';
 
@@ -11,43 +10,51 @@ try {
     $pdo = new PDO("mysql:host=$host", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Create the database if it doesn't exist
+    // Create database if not exists
     $pdo->exec("CREATE DATABASE IF NOT EXISTS `$dbname`");
     echo "Database `$dbname` created or already exists.\n";
 
-    // Switch to the new database
+    // Switch to database
     $pdo->exec("USE `$dbname`");
 
-    // Create the `products` table if it doesn't exist
+    // Create tables
     $pdo->exec("
-        CREATE TABLE IF NOT EXISTS products (
+        CREATE TABLE IF NOT EXISTS tractors (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
-            category VARCHAR(255) NOT NULL,
-            power VARCHAR(50) NOT NULL,
-            image_url TEXT NOT NULL,
+            brand VARCHAR(255) NOT NULL,
             description TEXT NOT NULL,
-            price VARCHAR(50) NOT NULL
-        )
+            price DECIMAL(10,2) NOT NULL,
+            horsepower INT NOT NULL,
+            stock INT DEFAULT 0,
+            featured TINYINT(1) DEFAULT 0,
+            photo_url VARCHAR(255) DEFAULT 'assets/default.jpg',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            INDEX idx_featured (featured),
+            INDEX idx_created (created_at)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     ");
-    echo "Table `products` created or already exists.\n";
+    echo "Table `tractors` created/updated successfully.\n";
 
-    // Check if the table is empty before inserting initial data
-    $stmt = $pdo->query("SELECT COUNT(*) FROM products");
+    // Check and seed initial data
+    $stmt = $pdo->query("SELECT COUNT(*) FROM tractors");
     if ($stmt->fetchColumn() == 0) {
-        // Insert initial data into the `products` table
         $pdo->exec("
-            INSERT INTO products (name, category, power, image_url, description, price) VALUES
-            ('AgriMax Pro X750', 'Heavy Duty', '75 HP', 'https://images.unsplash.com/photo-1598281003863-e12c6e30d510?ixlib=rb-4.0.3', 'Perfect for extensive farming operations, featuring advanced hydraulics system.', 'Starting at $65,000'),
-            ('AgriMax Compact C320', 'Compact', '32 HP', 'https://images.unsplash.com/photo-1587129472816-74735d7a1b3a?ixlib=rb-4.0.3', 'Ideal for small farms and specialized applications, with optimal maneuverability.', 'Starting at $28,500'),
-            ('AgriMax Utility U500', 'Utility', '50 HP', 'https://images.unsplash.com/photo-1624061259218-6e0d47b8d96b?ixlib=rb-4.0.3', 'Versatile and reliable, designed for medium-sized agricultural operations.', 'Starting at $42,000')
+            INSERT INTO tractors (name, brand, description, price, horsepower, stock, featured, photo_url) VALUES
+            ('AgriMax Pro X750', 'Powertrac', 'Advanced farming operations', 65000.00, 75, 10, 1, 'assets/pro_x750.jpg'),
+            ('Compact C320', 'Powertrac', 'Small farm specialist', 28500.00, 32, 15, 0, 'assets/c320.jpg'),
+            ('Utility U500', 'Powertrac', 'Medium agricultural work', 42000.00, 50, 8, 1, 'assets/u500.jpg'),
+            ('Euro 50 Next', 'Powertrac', '4WD premium model', 84500.00, 52, 5, 1, 'assets/euro50.jpg'),
+            ('Digitrac PP43i', 'Powertrac', 'Advanced utility tractor', 80000.00, 43, 12, 0, 'assets/pp43i.jpg');
         ");
-        echo "Initial product data inserted into `products` table.\n";
+        echo "Initial tractor data inserted.\n";
     } else {
-        echo "`products` table already contains data.\n";
+        echo "Tractor table already contains data.\n";
     }
 
+ 
+
 } catch (PDOException $e) {
-    die("Database setup failed: " . $e->getMessage());
+    die("Migration failed: " . $e->getMessage());
 }
 ?>

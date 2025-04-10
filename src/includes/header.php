@@ -13,12 +13,12 @@
 
             <!-- Desktop Navigation -->
             <div class="hidden md:flex space-x-8">
-                <a href="#" class="text-gray-700 hover:text-green-600 font-medium transition-colors">Home</a>
-                <a href="#products"
+                <a href="index.php" class="text-gray-700 hover:text-green-600 font-medium transition-colors">Home</a>
+                <a href="tractor-list.php"
                     class="text-gray-700 hover:text-green-600 font-medium transition-colors">Products</a>
-                <a href="#features"
+                <a href="index.php#features"
                     class="text-gray-700 hover:text-green-600 font-medium transition-colors">Features</a>
-                <a href="#contact"
+                <a href="index.php#contact"
                     class="text-gray-700 hover:text-green-600 font-medium transition-colors">Contact</a>
             </div>
 
