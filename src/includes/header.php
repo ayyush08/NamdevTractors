@@ -13,8 +13,8 @@
 
             <!-- Desktop Navigation -->
             <div class="hidden md:flex space-x-8">
-                <a href="index.php" class="text-gray-700 hover:text-green-600 font-medium transition-colors">Home</a>
-                <a href="tractor-list.php"
+                <a href="<?= BASE_URL ?>index.php" class="text-gray-700 hover:text-green-600 font-medium transition-colors">Home</a>
+                <a href="<?= BASE_URL ?>tractor-list.php"
                     class="text-gray-700 hover:text-green-600 font-medium transition-colors">Products</a>
                 <a href="index.php#features"
                     class="text-gray-700 hover:text-green-600 font-medium transition-colors">Features</a>

@@ -165,7 +165,7 @@ try {
                             </div>
                             <div class="p-4 pt-0 flex justify-between items-center mt-auto">
                                 <div class="text-xl font-bold text-green-600">$<?php echo $formattedPrice; ?></div>
-                                <a href="tractor_details.php?id=<?= $tractor['id'] ?>"
+                                <a href="tractor.php?id=<?= $tractor['id'] ?>"
                                     class="bg-green-800 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">
                                     View Details
                                 </a>
