@@ -64,7 +64,7 @@ try {
                 Dear {$name},<br><br>
                 Thank you for booking the tractor '{$tractor['name']}'.<br><br>
                 Please visit our shop to complete your purchase.<br>" .
-                (!empty($pickupDate) ? "Preferred Pickup Date: {$pickupDate}<br>" : "") .
+                "Preferred Pickup Date: {$pickupDate}<br>" .
                 "Shop Address: 123 Tractor Lane, YourCity<br><br>Thank you!"
         ]);
 
@@ -77,7 +77,7 @@ try {
                 New booking received!<br><br>
                 Tractor: {$tractor['name']}<br>
                 Customer: {$name} ({$email}, {$phone})<br>" .
-                (!empty($pickupDate) ? "Preferred Pickup Date: {$pickupDate}<br>" : "")
+                "Preferred Pickup Date: {$pickupDate}<br>"
 
         ]);
 
@@ -119,7 +119,8 @@ try {
 
         <?php else: ?>
             <div class="bg-white p-6 mt-8 rounded-lg shadow max-w-2xl mx-auto">
-                <h3 class="text-xl font-bold mb-4">Book This Tractor</h3>
+                <h3 class="text-xl font-bold mb-4">Book <?= htmlspecialchars($tractor['name']) ?></h3>
+                </h3>
                 <form method="POST">
                     <input type="hidden" name="tractor_id" value="<?= $tractor['id'] ?>">
 
