@@ -170,10 +170,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
         </div>
 
         <!-- Specifications -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8 mx-auto">
             <div class="border-b border-gray-200">
                 <div class="px-6 py-4">
-                    <h2 class="text-xl font-bold text-gray-900">Specifications</h2>
+                    <h2 class="text-xl font-bold text-gray-900 text-center">Specifications</h2>
                 </div>
             </div>
             <div class="p-6">

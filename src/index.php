@@ -90,21 +90,24 @@ try {
                         <!-- Display the first product -->
                         <?php $firstProduct = $products[0]; ?>
                         <div class="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-xl">
-                            <img id="product-image" src="<?= htmlspecialchars($firstProduct['photo_url']) ?>"
-                                alt="<?= htmlspecialchars($firstProduct['name']) ?>" class="w-full h-full object-cover" />
+                            <a id="product-link" href="tractor.php?id=<?= $firstProduct['id'] ?>">
+                                <img id="product-image" src="<?= htmlspecialchars($firstProduct['photo_url']) ?>"
+                                    alt="<?= htmlspecialchars($firstProduct['name']) ?>"
+                                    class="w-full h-full object-cover " />
+                            </a>
                             <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
                                 <h3 id="product-name" class="text-2xl font-bold text-white mb-2">
                                     <?= htmlspecialchars($firstProduct['name']) ?>
                                 </h3>
                                 <p id="product-specs" class="text-white/90 mb-1">
                                     <?= htmlspecialchars($firstProduct['horsepower']) ?> Horsepower
-                                    
                                 </p>
                                 <p id="product-price" class="text-green-400 font-medium">
                                     <?= htmlspecialchars($firstProduct['price']) ?>
                                 </p>
                             </div>
                         </div>
+
 
                         <div class="space-y-8">
                             <div>
@@ -132,7 +135,8 @@ try {
                                             data-description="<?= htmlspecialchars($product['description']) ?>"
                                             data-price="<?= htmlspecialchars($product['price']) ?>">
                                             <h5 class="font-medium"><?= htmlspecialchars($product['name']) ?></h5>
-                                            <p class="text-sm text-gray-500">HP:<?= htmlspecialchars($product['horsepower']) ?></p>
+                                            <p class="text-sm text-gray-500">HP:<?= htmlspecialchars($product['horsepower']) ?>
+                                            </p>
                                         </button>
                                     <?php endforeach; ?>
                                 </div>
@@ -273,16 +277,16 @@ try {
                             Our team is ready to assist you with all your agricultural equipment needs.
                         </p>
 
-                        
-                            
-                        </div>
-                    </div>
 
-                    <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Send us a message</h3>
-                        <?php include './includes/contact-form.php' ?>
+
                     </div>
                 </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Send us a message</h3>
+                    <?php include './includes/contact-form.php' ?>
+                </div>
+            </div>
             </div>
         </section>
     </main>
@@ -302,20 +306,23 @@ try {
         const productPrice = document.getElementById('product-price');
         const productTitle = document.getElementById('product-title');
         const productDescription = document.getElementById('product-description');
+        const productLink = document.querySelector('#product-link');  // Add a reference to the anchor tag
 
         productBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                
+
+                // Remove active class from all buttons
                 productBtns.forEach(b => {
                     b.classList.remove('border-green-600', 'bg-green-50');
                     b.classList.add('border-gray-200', 'hover:border-green-300');
                 });
 
+                // Add active class to the clicked button
                 btn.classList.remove('border-gray-200', 'hover:border-green-300');
                 btn.classList.add('border-green-600', 'bg-green-50');
 
                 // Update product content dynamically
-                const { name, category, power, image, description, price } = btn.dataset;
+                const { name, category, power, image, description, price, id } = btn.dataset;
 
                 productImage.src = image;
                 productImage.alt = name;
@@ -324,8 +331,12 @@ try {
                 productPrice.textContent = price;
                 productTitle.textContent = name;
                 productDescription.textContent = description;
+
+                // Update the anchor link with the product's id dynamically
+                productLink.href = `tractor.php?id=${id}`;
             });
         });
+
 
 
         // Testimonials Slider
@@ -377,7 +388,7 @@ try {
 
                 // Close mobile menu if open
                 console.log("Anchor clicked:", this.getAttribute('href'));
-                
+
 
                 const targetId = this.getAttribute('href');
 
@@ -395,7 +406,7 @@ try {
         });
 
 
-        
+
     </script>
 </body>
 

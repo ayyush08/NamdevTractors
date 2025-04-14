@@ -135,7 +135,7 @@ try {
                         $lowStock = $tractor['stock'] < 3;
                         ?>
                         <div
-                            class="overflow-hidden h-full flex flex-col hover:shadow-lg transition-shadow duration-300 rounded-lg border bg-white shadow-sm">
+                            class="overflow-hidden h-full flex flex-col shadow-sm shadow-green-400 hover:shadow-lg transition-shadow duration-300 rounded-lg border bg-white ">
                             <div class="relative h-48 bg-gray-100">
                                 <div class="absolute inset-0 flex items-center justify-center">
                                     <span class="tractor-icon text-gray-300 w-24 h-24"></span>

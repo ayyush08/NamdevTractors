@@ -103,7 +103,7 @@ try {
 <body class="bg-gray-100 min-h-screen flex flex-col">
     <?php include './header.php'; ?>
 
-    <div class="container mx-auto p-4 flex-1">
+    <div class="container mx-auto p-4 flex-1 shadow-lg shadow-green-400">
         <?php if ($error): ?>
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
                 <?= htmlspecialchars($error) ?>
@@ -118,7 +118,7 @@ try {
             </div>
 
         <?php else: ?>
-            <div class="bg-white p-6 mt-8 rounded-lg shadow max-w-2xl mx-auto">
+            <div class="bg-white p-6 mt-8 mb-5 rounded-lg  max-w-2xl mx-auto shadow-lg shadow-green-400">
                 <h3 class="text-xl font-bold mb-4">Book <?= htmlspecialchars($tractor['name']) ?></h3>
                 </h3>
                 <form method="POST">
@@ -143,7 +143,7 @@ try {
                             <input type="date" name="preferred_pickup_date" class="w-full p-2 border rounded">
                         </div>
                     </div>
-                    <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">
+                    <button type="submit" class="bg-green-600 text-white px-6 py-2 cursor-pointer rounded hover:bg-green-700">
                         Confirm Booking
                     </button>
                 </form>
