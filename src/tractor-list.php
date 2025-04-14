@@ -97,10 +97,11 @@ try {
                             </div>
 
                         </div>
-                        <button
+                        <a 
+                        href="tractor.php?id=<?= $featuredTractor['id'] ?>"
                             class="bg-white cursor-pointer text-green-700 px-6 py-3 rounded-md font-semibold hover:bg-green-50 transition-colors">
                             View Details
-                        </button>
+                        </a>
                     </div>
                     <div class="w-full md:w-1/2 flex justify-center">
                         <div

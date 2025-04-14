@@ -4,7 +4,7 @@
     <div class="container mx-auto px-4 py-4">
         <div class="flex justify-between items-center">
             <div class="flex items-center">
-                <a href="/" class="flex items-center">
+                <a href="<?= BASE_URL ?>index.php" class="flex items-center">
                     <span class="text-2xl font-bold text-green-600">
                         <?php echo APP_NAME; ?>
                     </span>

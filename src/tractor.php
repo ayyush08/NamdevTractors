@@ -23,10 +23,7 @@ try {
         exit;
     }
 
-    // Fetch related tractors (same brand or similar horsepower)
-    $featureStmt = $pdo->prepare("SELECT feature FROM tractor_features WHERE tractor_id = ?");
-    $featureStmt->execute([$tractorId]);
-    $features = $featureStmt->fetchAll(PDO::FETCH_COLUMN);
+    
 
 } catch (PDOException $e) {
     die("Database query failed: " . $e->getMessage());
@@ -180,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
                 </div>
             </div>
             <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="w-full max-w-md mx-auto">
                     <!-- Technical Details -->
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">Technical Details</h3>
@@ -216,22 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
                     </div>
 
                     <!-- Features -->
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Features</h3>
-                        <ul class="space-y-2">
-                            <?php foreach ($features as $feature): ?>
-                                <li class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="h-5 w-5 mr-2 text-green-600 flex-shrink-0 mt-0.5" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    <span><?php echo htmlspecialchars($feature); ?></span>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
+                   
                 </div>
             </div>
         </div>

@@ -30,8 +30,9 @@ try {
             owner_id INT NOT NULL DEFAULT 1,
             photo_url VARCHAR(255) DEFAULT 'assets/default.jpg',
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            INDEX idx_created (created_at)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+            INDEX idx_created (created_at),
+            featured BOOLEAN DEFAULT FALSE
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     ");
     echo "Table `tractors` created/updated successfully.\n";
 
@@ -59,16 +60,27 @@ try {
     ");
     echo "Table `bookings` created successfully.\n";
 
+    $pdo->exec("
+    CREATE TABLE IF NOT EXISTS tractor_features (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        tractor_id INT NOT NULL,
+        feature_name VARCHAR(255) NOT NULL,
+        feature_value VARCHAR(255) NOT NULL,
+        FOREIGN KEY (tractor_id) REFERENCES tractors(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+");
+echo "Table `tractor_features` created successfully.\n";
+
     // Seed initial data for `tractors` and `owners`
     $stmt = $pdo->query("SELECT COUNT(*) FROM tractors");
     if ($stmt->fetchColumn() == 0) {
         $pdo->exec("
-            INSERT INTO tractors (name, brand, description, price, horsepower, stock, owner_id, photo_url) VALUES
-                ('AgriMax Pro X750', 'Powertrac', 'Advanced farming operations', 65000.00, 75, 10, 1, 'assets/pro_x750.jpg'),
-                ('Compact C320', 'Powertrac', 'Small farm specialist', 28500.00, 32, 15, 1, 'assets/c320.jpg'),
-                ('Utility U500', 'Powertrac', 'Medium agricultural work', 42000.00, 50, 8, 1, 'assets/u500.jpg'),
-                ('Euro 50 Next', 'Powertrac', '4WD premium model', 84500.00, 52, 5, 1, 'assets/euro50.jpg'),
-                ('Digitrac PP43i', 'Powertrac', 'Advanced utility tractor', 80000.00, 43, 12, 1, 'assets/pp43i.jpg');
+            INSERT INTO tractors (name, brand, description, price, horsepower, stock, owner_id, photo_url,featured) VALUES
+                ('AgriMax Pro X750', 'Powertrac', 'Advanced farming operations', 65000.00, 75, 10, 1, 'assets/pro_x750.jpg',1),
+                ('Compact C320', 'Powertrac', 'Small farm specialist', 28500.00, 32, 15, 1, 'assets/c320.jpg',1),
+                ('Utility U500', 'Powertrac', 'Medium agricultural work', 42000.00, 50, 8, 1, 'assets/u500.jpg',1),
+                ('Euro 50 Next', 'Powertrac', '4WD premium model', 84500.00, 52, 5, 1, 'assets/euro50.jpg',0),
+                ('Digitrac PP43i', 'Powertrac', 'Advanced utility tractor', 80000.00, 43, 12, 1, 'assets/pp43i.jpg',1);
         ");
         echo "Initial tractor data inserted.\n";
     } else {
@@ -76,10 +88,9 @@ try {
     }
 
     $stmt = $pdo->query("SELECT COUNT(*) FROM owners");
-    if ($stmt->fetchColumn() == 0) {
+    if ($stmt->fetchColumn() != 0) {
         $pdo->exec("
-            INSERT INTO owners (id, email) VALUES 
-                (1, 'owner@tractortrove.com')
+            UPDATE owners SET email = 'ayushkumargupta2908@gmail.com' WHERE id = 1
         ");
         echo "Initial owner data inserted.\n";
     } else {
