@@ -3,7 +3,7 @@
 <?php include 'config.php'; ?>
 <?php
 include './db/db.php'; // Include database connection
-
+require '../vendor/autoload.php';
 
 try {
     $stmt = $pdo->query("SELECT * FROM tractors");

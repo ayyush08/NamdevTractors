@@ -143,7 +143,8 @@ try {
                             <input type="date" name="preferred_pickup_date" class="w-full p-2 border rounded">
                         </div>
                     </div>
-                    <button type="submit" class="bg-green-600 text-white px-6 py-2 cursor-pointer rounded hover:bg-green-700">
+                    <button type="submit"
+                        class="bg-green-600 text-white px-6 py-2 cursor-pointer rounded hover:bg-green-700">
                         Confirm Booking
                     </button>
                 </form>
@@ -152,6 +153,40 @@ try {
         <?php endif; ?>
     </div>
     <?php include './footer.php'; ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bookingForm = document.querySelector('form[method="POST"]');
+            const submitBtn = bookingForm?.querySelector('button[type="submit"]');
+            const successMessage = document.querySelector('.text-2xl');
+            const errorMessage = document.querySelector('.bg-red-100');
+
+            if (bookingForm && submitBtn) {
+                bookingForm.addEventListener('submit', () => {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Booking...';
+                });
+            }
+
+            // Smooth scroll to error/success message
+            if (successMessage) {
+                successMessage.parentElement.scrollIntoView({ behavior: 'smooth' });
+                fadeIn(successMessage.parentElement);
+            }
+
+            if (errorMessage) {
+                errorMessage.scrollIntoView({ behavior: 'smooth' });
+                fadeIn(errorMessage);
+            }
+
+            function fadeIn(el) {
+                el.style.opacity = 0;
+                el.style.transition = 'opacity 0.6s ease-in-out';
+                requestAnimationFrame(() => {
+                    el.style.opacity = 1;
+                });
+            }
+        });
+    </script>
 
 </body>
 
