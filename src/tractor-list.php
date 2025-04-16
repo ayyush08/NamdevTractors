@@ -92,7 +92,7 @@ try {
 
                             <div class="bg-green-700 p-3 rounded">
                                 <div class="text-green-200 text-sm">Price</div>
-                                <div class="text-xl font-bold">$<?php echo number_format($featuredTractor['price']); ?>
+                                <div class="text-xl font-bold">Rs. <?php echo $featuredTractor['price']; ?>
                                 </div>
                             </div>
 
@@ -131,7 +131,7 @@ try {
                     $tractors = $tractorsStmt->fetchAll(PDO::FETCH_ASSOC);
 
                     foreach ($tractors as $tractor) {
-                        $formattedPrice = number_format($tractor['price']);
+                        $formattedPrice = $tractor['price'];
                         $lowStock = $tractor['stock'] < 3;
                         ?>
                         <div
@@ -165,7 +165,7 @@ try {
                                 </p>
                             </div>
                             <div class="p-4 pt-0 flex justify-between items-center mt-auto">
-                                <div class="text-xl font-bold text-green-600">$<?php echo $formattedPrice; ?></div>
+                                <div class="text-xl font-bold text-green-600">Rs. <?php echo $formattedPrice; ?></div>
                                 <a href="tractor.php?id=<?= $tractor['id'] ?>"
                                     class="bg-green-800 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">
                                     View Details

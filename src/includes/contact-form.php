@@ -1,150 +1,106 @@
 <?php
-// include '../db/db.php';
-
-
-
+require '../../vendor/autoload.php';
+include '../db/db.php';
+include '../config.php';
 $resend = Resend::client('re_aNjh7Ayo_P3Gvp3JQEVVFc9VHmFPXVKBx');
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Sanitize and validate input data
-    $name = htmlspecialchars(trim($_POST['name']));
-    $email = htmlspecialchars(trim($_POST['email']));
-    $phone = htmlspecialchars(trim($_POST['phone']));
-    $message = htmlspecialchars(trim($_POST['message']));
+$contact_success = false;
+$error = '';
 
-    // Validate required fields
-    if (empty($name) || empty($email) || empty($message)) {
-        echo json_encode(['status' => 'error', 'message' => 'Please fill in all required fields.']);
-        exit;
-    }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Validate input
+    $name = htmlspecialchars($_POST['name']);
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+    $message = htmlspecialchars($_POST['message']);
 
-    // Validate email format
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo json_encode(['status' => 'error', 'message' => 'Invalid email address.']);
-        exit;
-    }
-
-    // Email details
     try {
-        // Connect to MySQL database
-
-        // Fetch owner email from database
-        $stmt = $pdo->prepare("SELECT email FROM owners WHERE id = 1 LIMIT 1");
-        $stmt->execute();
-        $owner = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!$owner || empty($owner['email'])) {
-            echo json_encode(['status' => 'error', 'message' => 'Owner email not found.']);
-            exit;
-        }
-
-        $to = $owner['email']; 
-
-        $subject = "New Contact Form Submission";
-        $body = "
-            <h2>Contact Form Submission</h2>
-            <p><strong>Name:</strong> {$name}</p>
-            <p><strong>Email:</strong> {$email}</p>
-            <p><strong>Phone:</strong> {$phone}</p>
-            <p><strong>Message:</strong></p>
-            <p>{$message}</p>
-        ";
-        
-
+        // Send customer confirmation email
         $resend->emails->send([
-            'from' => 'namdevtractors@inkognito.tech',
-            'to' => $to,
-            'subject' =>'New Contact Form Submission',
-            'html' => "<h2>Contact Form Submission</h2>
-            <p><strong>Name:</strong> {$name}</p>
-            <p><strong>Email:</strong> {$email}</p>
-            <p><strong>Phone:</strong> {$phone}</p>
-            <p><strong>Message:</strong><br>{$message}</p>",
-                
+            'from' => 'tractortrove@inkognito.tech',
+            'to' => $email,
+            'subject' => 'Contact Form Submission Confirmation',
+            'html' => "
+                Dear {$name},<br><br>
+                Thank you for reaching out to us. We'll get back to you as soon as possible.<br><br>
+                Message: {$message}<br><br>Thank you!"
         ]);
 
+        // Send admin notification email
+        $resend->emails->send([
+            'from' => 'tractortrove@inkognito.tech',
+            'to' => 'admin@yourdomain.com', // Replace with admin email
+            'subject' => 'New Contact Form Submission',
+            'html' => "
+                New contact form submission!<br><br>
+                Name: {$name}<br>
+                Email: {$email}<br>
+                Message: {$message}<br>"
+        ]);
 
-    } catch (PDOException $e) {
-        echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
+        // Set success flag
+        $contact_success = true;
+
+    } catch (Exception $e) {
+        $error = $e->getMessage();
     }
-} 
+}
 ?>
-<form id="contact-form" class="space-y-5" method="POST">
-    <div>
-        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-        <input type="text" id="name" name="name"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-tractor-500 focus:border-transparent"
-            required />
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="../output.css">
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <?php include './header.php'; ?>
+
+    <div class="container mx-auto p-4 flex-1 shadow-lg shadow-green-400">
+        <?php if ($error): ?>
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                <?= htmlspecialchars($error) ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($contact_success): ?>
+            <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6 mt-8 text-center">
+                <h1 class="text-2xl font-bold mb-4">Message Sent! ✅</h1>
+                <p class="mb-4">We'll get back to you as soon as possible.</p>
+                <a href="<?= BASE_URL ?>index.php" class="text-blue-600 hover:underline">← Return to homepage</a>
+            </div>
+
+        <?php else: ?>
+            <div class="bg-white p-6 mt-8 mb-5 rounded-lg  max-w-2xl mx-auto shadow-lg shadow-green-400">
+                <h3 class="text-xl font-bold mb-4">Contact Us</h3>
+                <form method="POST">
+                    <div class="grid gap-4 mb-4">
+                        <div>
+                            <label class="block mb-1">Full Name</label>
+                            <input type="text" name="name" required class="w-full p-2 border rounded">
+                        </div>
+                        <div>
+                            <label class="block mb-1">Email</label>
+                            <input type="email" name="email" required class="w-full p-2 border rounded">
+                        </div>
+                        <div>
+                            <label class="block mb-1">Message</label>
+                            <textarea name="message" required class="w-full p-2 border rounded" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit"
+                        class="bg-green-600 text-white px-6 py-2 cursor-pointer rounded hover:bg-green-700">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+
+        <?php endif; ?>
     </div>
+    <?php include './footer.php'; ?>
+</body>
 
-    <div>
-        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-        <input type="email" id="email" name="email"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-tractor-500 focus:border-transparent"
-            required />
-    </div>
-
-    <div>
-        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-        <input type="tel" id="phone" name="phone"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-tractor-500 focus:border-transparent" />
-    </div>
-
-    <div>
-        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-        <textarea id="message" name="message" rows="4"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-tractor-500 focus:border-transparent"
-            required></textarea>
-    </div>
-
-    <button type="submit" id="submit-btn" class="w-full btn-primary flex justify-center items-center">
-        Send Message
-    </button>
-</form>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const contactForm = document.getElementById('contact-form');
-    const submitBtn = document.getElementById('submit-btn');
-
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
-
-        try {
-            const formData = new FormData(contactForm);
-            const response = await fetch(contactForm.action, {
-                method: 'POST',
-                body: formData
-            });
-
-            const data = await response.json();
-
-            if (data.status === 'success') {
-                contactForm.reset();
-                showMessage('Message sent successfully!', 'success');
-            } else {
-                showMessage(data.message || 'Submission failed', 'error');
-            }
-        } catch (error) {
-            showMessage('Network error: Please try again', 'error');
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Send Message';
-        }
-    });
-
-    function showMessage(text, type) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `p-4 rounded-lg mt-4 ${type === 'success'
-            ? 'bg-green-100 text-green-800'
-            : 'bg-red-100 text-red-800'}`;
-        messageDiv.textContent = text;
-
-        contactForm.insertAdjacentElement('afterend', messageDiv);
-        setTimeout(() => messageDiv.remove(), 5000);
-    }
-});
-</script>
+</html>

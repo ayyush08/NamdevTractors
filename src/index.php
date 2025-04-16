@@ -6,7 +6,7 @@ include './db/db.php'; // Include database connection
 require '../vendor/autoload.php';
 
 try {
-    $stmt = $pdo->query("SELECT * FROM tractors");
+    $stmt = $pdo->query("SELECT * FROM tractors WHERE featured = 1");
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Failed to fetch products: " . $e->getMessage());
@@ -53,17 +53,14 @@ try {
                                     <path d="m12 5 7 7-7 7"></path>
                                 </svg>
                             </a>
-                            <a href="#contact" class="btn-secondary">
-                                Contact Us
-                            </a>
                         </div>
                     </div>
 
-                    <div class="relative h-[300px] md:h-[450px] lg:h-[500px] animate-fade-in"
+                    <div class="relative h-[300px] md:h-[450px] lg:h-[600px] animate-fade-in w-full"
                         style="animation-delay: 0.2s">
-                        <div
-                            class="absolute inset-0 bg-[url('./assets/sampleimage2.webp')] bg-cover bg-center rounded-lg shadow-xl transform hover:scale-[1.02] transition-transform duration-300">
-                        </div>
+                        <img src="<?= BASE_URL ?>/assets/<?= $products[2]['photo_url']?>" alt="Tractor"
+                            class="absolute  rounded-lg shadow-green-400 shadow-xl scale-125 transform hover:scale-[1.02] transition-transform duration-300 object-cover w-full h-full">
+                        </img>
                     </div>
                 </div>
             </div>
@@ -91,7 +88,7 @@ try {
                         <?php $firstProduct = $products[0]; ?>
                         <div class="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-xl">
                             <a id="product-link" href="tractor.php?id=<?= $firstProduct['id'] ?>">
-                                <img id="product-image" src="<?= htmlspecialchars($firstProduct['photo_url']) ?>"
+                                <img id="product-image" src="<?= BASE_URL ?>/assets/<?= htmlspecialchars($firstProduct['photo_url']) ?>"
                                     alt="<?= htmlspecialchars($firstProduct['name']) ?>"
                                     class="w-full h-full object-cover " />
                             </a>
@@ -103,7 +100,7 @@ try {
                                     <?= htmlspecialchars($firstProduct['horsepower']) ?> Horsepower
                                 </p>
                                 <p id="product-price" class="text-green-400 font-medium">
-                                    <?= htmlspecialchars($firstProduct['price']) ?>
+                                    Rs. <?= htmlspecialchars($firstProduct['price']) ?>
                                 </p>
                             </div>
                         </div>
@@ -167,7 +164,7 @@ try {
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow">
+                    <div class="p-6 rounded-xl bg-white shadow-sm shadow-green-400 hover:shadow-lg transition-shadow duration-300 ">
                         <div
                             class="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-green-100 text-green-600 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -185,7 +182,7 @@ try {
                         <p class="text-gray-600">Equipped with the latest innovations for improved performance and fuel
                             efficiency.</p>
                     </div>
-                    <div class="p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow">
+                    <div class="p-6 rounded-xl bg-white shadow-sm shadow-green-400 hover:shadow-lg transition-shadow duration-300">
                         <div
                             class="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-green-100 text-green-600 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -200,7 +197,7 @@ try {
                         <p class="text-gray-600">Manufactured with premium materials to ensure longevity and
                             reliability.</p>
                     </div>
-                    <div class="p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow">
+                    <div class="p-6 rounded-xl bg-white shadow-sm shadow-green-400 hover:shadow-lg transition-shadow duration-300">
                         <div
                             class="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-green-100 text-green-600 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -220,7 +217,7 @@ try {
                         <p class="text-gray-600">Designed for simple servicing with readily available parts and support.
                         </p>
                     </div>
-                    <div class="p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow">
+                    <div class="p-6 rounded-xl bg-white shadow-sm shadow-green-400 hover:shadow-lg transition-shadow duration-300">
                         <div
                             class="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-green-100 text-green-600 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -244,7 +241,8 @@ try {
                             <h3 class="text-2xl md:text-3xl font-bold mb-4">Ready to upgrade your farming equipment?
                             </h3>
                             <p class="text-white/90 mb-6 lg:mb-0">
-                                Our experts are ready to help you find the perfect tractor for your agricultural needs.
+                                Experience the difference with our premium tractors. Book a demo today and see for yourself
+                                how our machines can transform your agricultural operations.
                             </p>
                         </div>
                         <div class="flex justify-center lg:justify-end">
@@ -259,36 +257,6 @@ try {
 
 
 
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-16 md:py-24 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <div>
-                        <span
-                            class="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium mb-4">
-                            Get In Touch
-                        </span>
-                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                            Contact Us Today
-                        </h2>
-                        <p class="text-lg text-gray-600 mb-8">
-                            Have questions about our tractors or want to schedule a demonstration?
-                            Our team is ready to assist you with all your agricultural equipment needs.
-                        </p>
-
-
-
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Send us a message</h3>
-                    <?php include './includes/contact-form.php' ?>
-                </div>
-            </div>
-            </div>
-        </section>
     </main>
 
     <!-- Footer -->
@@ -324,84 +292,16 @@ try {
                 // Update product content dynamically
                 const { name, category, power, image, description, price, id } = btn.dataset;
 
-                productImage.src = image;
+                productImage.src = `<?= BASE_URL ?>/assets/${image}`;;
                 productImage.alt = name;
                 productName.textContent = name;
-                productSpecs.textContent = `${power} | ${category}`;
-                productPrice.textContent = price;
+                productSpecs.textContent = `${power} Horsepower`;
+                productPrice.textContent = `Rs. ${price}`;
                 productTitle.textContent = name;
                 productDescription.textContent = description;
 
                 // Update the anchor link with the product's id dynamically
                 productLink.href = `tractor.php?id=${id}`;
-            });
-        });
-
-
-
-        // Testimonials Slider
-
-        // Contact Form
-        const contactForm = document.getElementById('contact-form');
-        const submitBtn = document.getElementById('submit-btn');
-
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            // Disable submit button and show loading state
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
-
-            // Simulate form submission
-            setTimeout(() => {
-                // Reset form
-                contactForm.reset();
-
-                // Show success message
-                const successMessage = document.createElement('div');
-                successMessage.className = 'bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded relative mt-4';
-                successMessage.innerHTML = `
-            <strong class="font-bold">Message Sent!</strong>
-            <span class="block sm:inline"> We'll get back to you as soon as possible.</span>
-          `;
-
-                contactForm.parentNode.insertBefore(successMessage, contactForm.nextSibling);
-
-                // Reset button
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Message';
-
-                // Remove success message after 5 seconds
-                setTimeout(() => {
-                    successMessage.remove();
-                }, 5000);
-            }, 1500);
-        });
-
-        // Update current year in footer
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                // Close mobile menu if open
-                console.log("Anchor clicked:", this.getAttribute('href'));
-
-
-                const targetId = this.getAttribute('href');
-
-                if (targetId === '#') return;
-
-                const targetElement = document.querySelector(targetId);
-
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80, // Adjust for navbar height
-                        behavior: 'smooth'
-                    });
-                }
             });
         });
 

@@ -1,7 +1,7 @@
 <?php
 // Database configuration
 $host = 'localhost';
-$dbname = 'tractortrove';
+$dbname = 'namdevtractors';
 $username = 'root';
 $password = '';
 
@@ -17,7 +17,30 @@ try {
     // Switch to the database
     $pdo->exec("USE `$dbname`");
 
-    // Create `tractors` table
+    // Create `owners` table
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS owners (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            email VARCHAR(255) NOT NULL UNIQUE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    ");
+    echo "Table `owners` created successfully.\n";
+
+    // Create `bookings` table
+
+    $stmt = $pdo->query("SELECT COUNT(*) FROM owners");
+    if ($stmt->fetchColumn() == 0) {
+        $pdo->exec("
+            INSERT INTO owners(email) VALUES('ayushkumargupta2908@gmail.com')
+        ");
+        echo "Initial owner data inserted.\n";
+    } else {
+        echo "Owners table already contains data.\n";
+    }
+
+
+    // Seed initial data for `tractors` and `owners`
+    // Create `tractors` table (updated with image_name)
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS tractors (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -29,73 +52,46 @@ try {
             stock INT DEFAULT 0,
             owner_id INT NOT NULL DEFAULT 1,
             photo_url VARCHAR(255) DEFAULT 'assets/default.jpg',
+            image_name VARCHAR(255) DEFAULT '',
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             INDEX idx_created (created_at),
             featured BOOLEAN DEFAULT FALSE
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     ");
     echo "Table `tractors` created/updated successfully.\n";
 
-    // Create `owners` table
-    $pdo->exec("
-        CREATE TABLE IF NOT EXISTS owners (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            email VARCHAR(255) NOT NULL UNIQUE
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-    ");
-    echo "Table `owners` created successfully.\n";
-
-    // Create `bookings` table
-    $pdo->exec("
-        CREATE TABLE IF NOT EXISTS bookings (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            tractor_id INT NOT NULL,
-            customer_name VARCHAR(255) NOT NULL,
-            customer_email VARCHAR(255) NOT NULL,
-            customer_phone VARCHAR(20) NOT NULL,
-            preferred_pickup_date DATE NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (tractor_id) REFERENCES tractors(id)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-    ");
-    echo "Table `bookings` created successfully.\n";
-
-    $pdo->exec("
-    CREATE TABLE IF NOT EXISTS tractor_features (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        tractor_id INT NOT NULL,
-        feature_name VARCHAR(255) NOT NULL,
-        feature_value VARCHAR(255) NOT NULL,
-        FOREIGN KEY (tractor_id) REFERENCES tractors(id) ON DELETE CASCADE
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-");
-echo "Table `tractor_features` created successfully.\n";
-
-    // Seed initial data for `tractors` and `owners`
+    // Seed new tractor data
     $stmt = $pdo->query("SELECT COUNT(*) FROM tractors");
     if ($stmt->fetchColumn() == 0) {
         $pdo->exec("
-            INSERT INTO tractors (name, brand, description, price, horsepower, stock, owner_id, photo_url,featured) VALUES
-                ('AgriMax Pro X750', 'Powertrac', 'Advanced farming operations', 65000.00, 75, 10, 1, 'assets/pro_x750.jpg',1),
-                ('Compact C320', 'Powertrac', 'Small farm specialist', 28500.00, 32, 15, 1, 'assets/c320.jpg',1),
-                ('Utility U500', 'Powertrac', 'Medium agricultural work', 42000.00, 50, 8, 1, 'assets/u500.jpg',1),
-                ('Euro 50 Next', 'Powertrac', '4WD premium model', 84500.00, 52, 5, 1, 'assets/euro50.jpg',0),
-                ('Digitrac PP43i', 'Powertrac', 'Advanced utility tractor', 80000.00, 43, 12, 1, 'assets/pp43i.jpg',1);
+            INSERT INTO tractors (name, brand, description, price, horsepower, stock, owner_id, photo_url, image_name, featured) VALUES
+                ('John Deere 5130M', 'John Deere', '4-cylinder 4.5L PowerTech™, 3700kg lift, ISOBUS, JDLink™', 3250000.00, 130, 4, 1, 'john_deere_5130m.jpg', 'john-deere-5130m', 0),
+                ('Swaraj 855 FE', 'Swaraj', '3-cylinder, 3478CC, 2000kg lift, Oil-immersed brakes', 865000.00, 48, 6, 1, 'swaraj_855_fe.jpg', 'swaraj-855-fe', 0),
+                ('Mahindra 575 DI XP Plus', 'Mahindra', '4-cylinder, 2979CC, 1500kg lift, 6-year warranty', 708000.00, 47, 8, 1, 'mahindra_575_di_xp_plus.jpg', 'mahindra-575-di-xp-plus', 1),
+                ('New Holland 3630 TX Super Plus', 'New Holland', '3-cylinder, 2991CC, 1700kg lift, Power Steering', 920000.00, 50, 5, 1, 'new_holland_3630_tx_super_plus.jpg', 'new-holland-3630-tx-super-plus', 0),
+                ('Sonalika RX 745 III Sikander', 'Sonalika', '3-cylinder, 3067CC, 2000kg lift, Oil-immersed brakes', 755000.00, 50, 7, 1, 'sonalika_rx_745_iii_sikander.jpg', 'sonalika-rx-745-iii-sikander', 1),
+                ('Farmtrac 6050 Executive 4WD', 'Farmtrac', '4-cylinder, 1800kg lift, Power Steering', 820000.00, 50, 3, 1, 'farmtrac_6050_executive_4wd.jpg', 'farmtrac-6050-executive-4wd', 1);
         ");
-        echo "Initial tractor data inserted.\n";
+        echo "New tractor data inserted.\n";
     } else {
         echo "Tractor table already contains data.\n";
     }
 
-    $stmt = $pdo->query("SELECT COUNT(*) FROM owners");
-    if ($stmt->fetchColumn() != 0) {
-        $pdo->exec("
-            UPDATE owners SET email = 'ayushkumargupta2908@gmail.com' WHERE id = 1
-        ");
-        echo "Initial owner data inserted.\n";
-    } else {
-        echo "Owners table already contains data.\n";
-    }
+    $pdo->exec("
+    CREATE TABLE IF NOT EXISTS bookings (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        tractor_id INT NOT NULL,
+        customer_name VARCHAR(255) NOT NULL,
+        customer_email VARCHAR(255) NOT NULL,
+        customer_phone VARCHAR(20) NOT NULL,
+        preferred_pickup_date DATE NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (tractor_id) REFERENCES tractors(id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+");
+    echo "Table `bookings` created successfully.\n";
+
+    
 
 } catch (PDOException $e) {
     die("Migration failed: " . $e->getMessage());

@@ -1,7 +1,7 @@
 <?php
 // Database connection
 $host = 'localhost';
-$dbname = 'tractortrove';
+$dbname = 'namdevtractors';
 $username = 'root';
 $password = '';
 

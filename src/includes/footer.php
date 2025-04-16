@@ -19,16 +19,16 @@
                         <?php echo APP_NAME; ?>
                     </span>
                 </div>
-                <p class="text-gray-400 mb-4">
-                    Providing premium agricultural equipment and exceptional service since 1995.
+                <p class="text-gray-400 ">
+                    Providing premium agricultural equipment and exceptional services to farmers and landowners.
                 </p>
 
             </div>
 
 
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+            <div class="border-t border-gray-800  pt-8 text-center">
                 <p class="text-gray-400">
-                    &copy; <span id="current-year"></span> TractorLand. All rights reserved.
+                    &copy; <span id="current-year"></span> All rights reserved.
                 </p>
             </div>
         </div>
