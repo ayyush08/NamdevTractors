@@ -59,7 +59,7 @@ try {
                     <div class="relative h-[300px] md:h-[450px] lg:h-[600px] animate-fade-in w-full"
                         style="animation-delay: 0.2s">
                         <img src="<?= BASE_URL ?>/assets/<?= $products[2]['photo_url']?>" alt="Tractor"
-                            class="absolute  rounded-lg shadow-green-400 shadow-xl scale-125 transform hover:scale-[1.02] transition-transform duration-300 object-cover w-full h-full">
+                            class="absolute  rounded-lg shadow-green-400 shadow-xl transform hover:scale-[1.02] transition-transform duration-300 w-full h-full">
                         </img>
                     </div>
                 </div>

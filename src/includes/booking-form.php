@@ -13,6 +13,11 @@ try {
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
         $tractorId = (int) $_GET['id'];
+    } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tractor_id'])) {
+        $tractorId = (int) $_POST['tractor_id'];
+    }
+
+    if (isset($tractorId)) {
         $stmt = $pdo->prepare("
             SELECT t.*, o.email AS owner_email 
             FROM tractors t
@@ -32,6 +37,10 @@ try {
         $phone = filter_var($_POST['phone'], FILTER_SANITIZE_NUMBER_INT);
         $pickupDate = !empty($_POST['preferred_pickup_date']) ? $_POST['preferred_pickup_date'] : null;
 
+
+        if ($pickupDate && strtotime($pickupDate) <= strtotime(date('Y-m-d'))) {
+            throw new Exception("Please pick a date after today.");
+        }
         // Get tractor and owner details
         $stmt = $pdo->prepare("
             SELECT t.*, o.email AS owner_email 
@@ -46,7 +55,6 @@ try {
             throw new Exception("Tractor not found");
         }
 
-        // Create booking
         $stmt = $pdo->prepare("
             INSERT INTO bookings 
             (tractor_id, customer_name, customer_email, customer_phone, preferred_pickup_date)
@@ -54,8 +62,6 @@ try {
         ");
         $stmt->execute([$tractorId, $name, $email, $phone, $pickupDate]);
 
-        // Send emails
-        // Customer confirmation email
         $resend->emails->send([
             'from' => 'namdevtractors@inkognito.tech',
             'to' => $email,
@@ -128,19 +134,23 @@ try {
                     <div class="grid gap-4 mb-4">
                         <div>
                             <label class="block mb-1">Full Name</label>
-                            <input type="text" name="name" required class="w-full p-2 border rounded">
+                            <input placeholder="Enter your full name" type="text" name="name" required
+                                class="w-full p-2 border rounded">
                         </div>
                         <div>
                             <label class="block mb-1">Email</label>
-                            <input type="email" name="email" required class="w-full p-2 border rounded">
+                            <input placeholder="Enter your email" type="email" name="email" required
+                                class="w-full p-2 border rounded">
                         </div>
                         <div>
                             <label class="block mb-1">Phone Number</label>
-                            <input type="tel" name="phone" required class="w-full p-2 border rounded">
+                            <input placeholder="Enter your phone number" type="tel" name="phone" required
+                                class="w-full p-2 border rounded">
                         </div>
                         <div>
-                            <label class="block mb-1">Preferred Pickup Date (optional)</label>
-                            <input type="date" name="preferred_pickup_date" class="w-full p-2 border rounded">
+                            <label class="block mb-1">Preferred Pickup Date</label>
+                            <input type="date" name="preferred_pickup_date"
+                                class="w-full p-2 border rounded cursor-pointer">
                         </div>
                     </div>
                     <button type="submit"

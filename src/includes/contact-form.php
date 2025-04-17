@@ -68,15 +68,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="grid gap-4 mb-4">
                         <div>
                             <label class="block mb-1">Full Name</label>
-                            <input type="text" name="name" required class="w-full p-2 border rounded">
+                            <input placeholder="Enter your full name" type="text" name="name" required class="w-full p-2 border rounded">
                         </div>
                         <div>
                             <label class="block mb-1">Email</label>
-                            <input type="email" name="email" required class="w-full p-2 border rounded">
+                            <input placeholder="Enter your email" type="email" name="email" required class="w-full p-2 border rounded">
+                        </div>
+                        <div>
+                            <label class="block mb-1">Mobile Number</label>
+                            <input placeholder="Enter your mobile number" type="text" name="phone" required class="w-full p-2 border rounded">
                         </div>
                         <div>
                             <label class="block mb-1">Message</label>
-                            <textarea name="message" required class="w-full p-2 border rounded" rows="4"></textarea>
+                            <textarea placeholder="Enter your query here" name="message" required class="w-full p-2 border rounded" rows="4"></textarea>
                         </div>
                     </div>
                     <button type="submit"

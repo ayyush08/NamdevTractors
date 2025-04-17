@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
                 <!-- Tractor Image -->
                 <div class="md:w-1/2 bg-gray-100 flex items-center justify-center p-8">
                     <div class="relative w-full aspect-square max-w-md flex items-center justify-center">
-                        <img src="" class="tractor-icon text-gray-300 w-64 h-64"></img>
+                        <img src="<?= BASE_URL ?>/assets/<?= $tractor['photo_url']?>" class=" text-gray-300 rounded-lg "></img>
 
                     </div>
                 </div>
@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
                     </h1>
 
                     <div class="text-3xl font-bold text-green-600 mb-4">
-                        $<?php echo number_format($tractor['price']); ?>
+                        Rs. <?php echo $tractor['price']; ?>
                     </div>
 
                     <p class="text-gray-700 mb-6">
@@ -149,38 +149,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
 
 
 
-
-                    <!-- Delivery Info -->
-                    <div class=" pt-4">
-                        <div class="flex items-center text-gray-700 mb-2">
-
-                            Free delivery available
-                        </div>
-                        <div class="flex items-center text-gray-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-600" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                            </svg>
-                            2-year warranty included
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Specifications -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8 mx-auto">
-            <div class="border-b border-gray-200">
-                <div class="px-6 py-4">
-                    <h2 class="text-xl font-bold text-gray-900 text-center">Specifications</h2>
-                </div>
-            </div>
+        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8 mx-auto shadow-green-400">
             <div class="p-6">
                 <div class="w-full max-w-md mx-auto">
                     <!-- Technical Details -->
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Technical Details</h3>
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-4">Product Details</h3>
                         <ul class="space-y-3">
                             <li class="flex justify-between">
                                 <span class="text-gray-600">Brand</span>
@@ -201,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
                             <li class="flex justify-between">
                                 <span class="text-gray-600">Price</span>
                                 <span
-                                    class="font-medium text-gray-900">$<?php echo number_format($tractor['price'], 2); ?></span>
+                                    class="font-medium text-gray-900">Rs. <?php echo $tractor['price'] ?></span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-gray-600">Stock</span>
