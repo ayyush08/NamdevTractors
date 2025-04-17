@@ -26,7 +26,7 @@ try {
     <?php include './includes/header.php'; ?>
     <main>
         <!-- Hero Section -->
-        <section class="relative overflow-hidden bg-gradient-to-b from-tractor-50 to-white py-16 md:py-24">
+        <section class="relative overflow-hidden bg-gradient-to-b from-tractor-50 to-white py-16 md:py-20">
             <div class="container mx-auto px-4">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div class="space-y-6 animate-fade-in">
@@ -44,7 +44,7 @@ try {
                             agricultural productivity.
                         </p>
                         <div class="flex flex-wrap gap-4 pt-2">
-                            <a href="#products" class="btn-primary flex items-center gap-2">
+                            <a href="<?=BASE_URL ?>tractor-list.php" class="btn-primary flex items-center gap-2">
                                 Explore Models
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -52,6 +52,10 @@ try {
                                     <path d="M5 12h14"></path>
                                     <path d="m12 5 7 7-7 7"></path>
                                 </svg>
+                            </a>
+                            <a href="#products" class="btn-secondary flex items-center gap-2">
+                                Featured Models
+                               
                             </a>
                         </div>
                     </div>
@@ -70,7 +74,7 @@ try {
         </section>
 
         <!-- Product Showcase -->
-        <section id="products" class="py-16 md:py-24 bg-white">
+        <section id="products" class="py-16 md:py-20 bg-white">
             <div class="container mx-auto px-4">
                 <div class="text-center max-w-3xl mx-auto mb-16">
                     <span

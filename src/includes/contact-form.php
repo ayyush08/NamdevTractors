@@ -13,16 +13,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $message = htmlspecialchars($_POST['message']);
 
+    $stmt = $pdo->prepare("SELECT email FROM owners WHERE id = ?");
+    $stmt->execute([1]);
+    $owner = $stmt->fetch(PDO::FETCH_ASSOC);
+
     try {
         // Send contact form submission email to owner
         $resend->emails->send([
             'from' => 'namdevtractors@inkognito.tech',
-            'to' => $email,
+            'to' => $owner['email'],
             'subject' => 'Contact Form Submission Confirmation',
             'html' => "
-                Dear {$name},<br><br>
-                Thank you for reaching out to us. We'll get back to you as soon as possible.<br><br>
-                Message: {$message}<br><br>Thank you!"
+                <h1>Contact Form Submission</h1>
+                <p><strong>Name:</strong> $name</p>
+                <p><strong>Email:</strong> $email</p>
+                <p><strong>Message:</strong></p>
+                <p>$message</p>"
+        ]);
+
+        $resend->emails->send([
+            'from'=>'namdevtractors@inkognito.tech',
+            'to'=>$email,
+            'subject'=>'Thank you for contacting us!',
+            'html'=>"
+                <h1>Thank you for contacting us!</h1>
+                <p>Dear $name,</p>
+                <p>Thank you for reaching out to us. We have received your message and will get back to you shortly.</p>
+                <p>Best regards,<br>NamDev Tractors</p>"
         ]);
 
         // Set success flag

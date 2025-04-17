@@ -23,7 +23,7 @@ try {
         exit;
     }
 
-    
+
 
 } catch (PDOException $e) {
     die("Database query failed: " . $e->getMessage());
@@ -60,37 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
     <meta name="description" content="<?php echo htmlspecialchars($tractor['description']); ?>">
     <link rel="stylesheet" href="./output.css">
 
-    <style>
-        .tractor-icon {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            background-color: currentColor;
-            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='5.5' cy='17.5' r='3.5'/%3E%3Ccircle cx='18.5' cy='17.5' r='3.5'/%3E%3Cpath d='M10 17.5h3'/%3E%3Cpath d='M2 9h10l3 8'/%3E%3Cpath d='M15 9h6'/%3E%3Cpath d='M15 5v4'/%3E%3C/svg%3E");
-            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='5.5' cy='17.5' r='3.5'/%3E%3Ccircle cx='18.5' cy='17.5' r='3.5'/%3E%3Cpath d='M10 17.5h3'/%3E%3Cpath d='M2 9h10l3 8'/%3E%3Cpath d='M15 9h6'/%3E%3Cpath d='M15 5v4'/%3E%3C/svg%3E");
-            mask-size: contain;
-            -webkit-mask-size: contain;
-            mask-repeat: no-repeat;
-            -webkit-mask-repeat: no-repeat;
-            mask-position: center;
-            -webkit-mask-position: center;
-        }
-
-        .tag-icon {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            background-color: currentColor;
-            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z'/%3E%3Cpath d='M7 7h.01'/%3E%3C/svg%3E");
-            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z'/%3E%3Cpath d='M7 7h.01'/%3E%3C/svg%3E");
-            mask-size: contain;
-            -webkit-mask-size: contain;
-            mask-repeat: no-repeat;
-            -webkit-mask-repeat: no-repeat;
-            mask-position: center;
-            -webkit-mask-position: center;
-        }
-    </style>
 </head>
 
 <body class="min-h-screen bg-gray-50">
@@ -108,45 +77,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
                 <!-- Tractor Image -->
                 <div class="md:w-1/2 bg-gray-100 flex items-center justify-center p-8">
                     <div class="relative w-full aspect-square max-w-md flex items-center justify-center">
-                        <img src="<?= BASE_URL ?>/assets/<?= $tractor['photo_url']?>" class=" text-gray-300 rounded-lg "></img>
+                        <img src="<?= BASE_URL ?>/assets/<?= $tractor['photo_url'] ?>"
+                            class=" text-gray-300 rounded-lg "></img>
 
                     </div>
                 </div>
 
                 <!-- Tractor Info -->
-                <div class="md:w-1/2 p-6">
-                    <div class="flex items-center mb-2">
-                        <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
-                            <?php echo htmlspecialchars($tractor['brand']); ?>
-                        </span>
-                        <?php if ($tractor['stock'] < 3): ?>
-                            <span class="ml-2 bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
-                                Only <?php echo $tractor['stock']; ?> left in stock
+                <div class="p-6 w-1/2">
+                    <div class=" flex flex-col justify-center h-full">
+
+                        <div class="flex items-center mb-2">
+                            <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                                <?php echo htmlspecialchars($tractor['brand']); ?>
                             </span>
-                        <?php else: ?>
-                            <span class="ml-2 bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
-                                In Stock
-                            </span>
-                        <?php endif; ?>
-                    </div>
+                            <?php if ($tractor['stock'] < 3): ?>
+                                <span
+                                    class="ml-2 bg-amber-100 text-amber-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                                    Only <?php echo $tractor['stock']; ?> left in stock
+                                </span>
+                            <?php else: ?>
+                                <span
+                                    class="ml-2 bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                                    In Stock
+                                </span>
+                            <?php endif; ?>
+                        </div>
 
-                    <h1 class="text-3xl font-bold text-gray-900 mb-2">
-                        <?php echo htmlspecialchars($tractor['name']); ?>
-                    </h1>
+                        <h1 class="text-3xl font-bold text-gray-900 mb-2">
+                            <?php echo htmlspecialchars($tractor['name']); ?>
+                        </h1>
 
-                    <div class="text-3xl font-bold text-green-600 mb-4">
-                        Rs. <?php echo $tractor['price']; ?>
-                    </div>
+                        <div class="text-3xl font-bold text-green-600 mb-4">
+                            Rs. <?php echo $tractor['price']; ?>
+                        </div>
 
-                    <p class="text-gray-700 mb-6">
-                        <?php echo htmlspecialchars($tractor['description']); ?>
-                    </p>
+                        <p class="text-gray-700 mb-6">
+                            <?php echo htmlspecialchars($tractor['description']); ?>
+                        </p>
 
-                    <a href="./includes/booking-form.php?id=<?= $tractorId ?>" name="purchase"
-                        class="bg-green-600 cursor-pointer hover:bg-green-700 text-white font-bold py-3 px-6 rounded-md transition-all">
+                        <a
+                        style="width: 50%;"
+                         href="./includes/booking-form.php?id=<?= $tractorId ?>" name="purchase"
+                        class="bg-green-600 cursor-pointer hover:bg-green-700 text-white font-bold py-3 px-4 text-center rounded-md transition-all ">
                         Book Now
                     </a>
-
+                </div>
+                    
 
 
                 </div>
@@ -179,8 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-gray-600">Price</span>
-                                <span
-                                    class="font-medium text-gray-900">Rs. <?php echo $tractor['price'] ?></span>
+                                <span class="font-medium text-gray-900">Rs. <?php echo $tractor['price'] ?></span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-gray-600">Stock</span>
@@ -192,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
                     </div>
 
                     <!-- Features -->
-                   
+
                 </div>
             </div>
         </div>

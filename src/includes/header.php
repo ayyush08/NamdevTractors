@@ -15,9 +15,9 @@
                     class="text-gray-700 hover:text-green-600 font-medium transition-colors">Home</a>
                 <a href="<?= BASE_URL ?>tractor-list.php"
                     class="text-gray-700 hover:text-green-600 font-medium transition-colors">Products</a>
-                <a href="index.php#features"
+                <a href="<?=BASE_URL ?>index.php#features"
                     class="text-gray-700 hover:text-green-600 font-medium transition-colors">Features</a>
-                <a href="<?= BASE_URL ?>/includes/contact-form.php"
+                <a href="<?= BASE_URL ?>includes/contact-form.php"
                     class="text-gray-700 hover:text-green-600 font-medium transition-colors">Contact Us</a>
             </div>
 
