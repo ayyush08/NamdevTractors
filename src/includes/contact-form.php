@@ -14,27 +14,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $message = htmlspecialchars($_POST['message']);
 
     try {
-        // Send customer confirmation email
+        // Send contact form submission email to owner
         $resend->emails->send([
-            'from' => 'tractortrove@inkognito.tech',
+            'from' => 'namdevtractors@inkognito.tech',
             'to' => $email,
             'subject' => 'Contact Form Submission Confirmation',
             'html' => "
                 Dear {$name},<br><br>
                 Thank you for reaching out to us. We'll get back to you as soon as possible.<br><br>
                 Message: {$message}<br><br>Thank you!"
-        ]);
-
-        // Send admin notification email
-        $resend->emails->send([
-            'from' => 'tractortrove@inkognito.tech',
-            'to' => 'admin@yourdomain.com', // Replace with admin email
-            'subject' => 'New Contact Form Submission',
-            'html' => "
-                New contact form submission!<br><br>
-                Name: {$name}<br>
-                Email: {$email}<br>
-                Message: {$message}<br>"
         ]);
 
         // Set success flag

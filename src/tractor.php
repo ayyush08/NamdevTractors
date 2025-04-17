@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
                 <!-- Tractor Image -->
                 <div class="md:w-1/2 bg-gray-100 flex items-center justify-center p-8">
                     <div class="relative w-full aspect-square max-w-md flex items-center justify-center">
-                        <span class="tractor-icon text-gray-300 w-64 h-64"></span>
+                        <img src="" class="tractor-icon text-gray-300 w-64 h-64"></img>
 
                     </div>
                 </div>

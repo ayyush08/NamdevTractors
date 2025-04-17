@@ -57,7 +57,7 @@ try {
         // Send emails
         // Customer confirmation email
         $resend->emails->send([
-            'from' => 'tractortrove@inkognito.tech',
+            'from' => 'namdevtractors@inkognito.tech',
             'to' => $email,
             'subject' => 'Booking Confirmation',
             'html' => "
@@ -70,7 +70,7 @@ try {
 
         // Owner notification email
         $resend->emails->send([
-            'from' => 'tractortrove@inkognito.tech',
+            'from' => 'namdevtractors@inkognito.tech',
             'to' => $tractor['owner_email'],
             'subject' => 'New Tractor Booking',
             'html' => "

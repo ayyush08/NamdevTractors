@@ -97,20 +97,18 @@ try {
                             </div>
 
                         </div>
-                        <a 
-                        href="tractor.php?id=<?= $featuredTractor['id'] ?>"
+                        <a href="tractor.php?id=<?= $featuredTractor['id'] ?>"
                             class="bg-white cursor-pointer text-green-700 px-6 py-3 rounded-md font-semibold hover:bg-green-50 transition-colors">
                             View Details
                         </a>
                     </div>
-                    <div class="w-full md:w-1/2 flex justify-center">
-                        <div
-                            class="bg-green-500 rounded-xl p-8 w-full max-w-md aspect-square flex items-center justify-center">
-                            <span class="tractor-icon text-white w-48 h-48"></span>
-                        </div>
+                    <div class="w-full md:w-1/2 flex justify-center ">
+                        <img src="<?= BASE_URL ?>assets/<?= $featuredTractor['photo_url'] ?>"
+                            class=" object-cover rounded-lg " />
+
                     </div>
                 </div>
-            </div>  
+            </div>
         </div>
 
         <!-- Tractor Listing Section -->
@@ -136,10 +134,12 @@ try {
                         ?>
                         <div
                             class="overflow-hidden h-full flex flex-col shadow-sm shadow-green-400 hover:shadow-lg transition-shadow duration-300 rounded-lg border bg-white ">
-                            <div class="relative h-48 bg-gray-100">
-                                <div class="absolute inset-0 flex items-center justify-center">
-                                    <span class="tractor-icon text-gray-300 w-24 h-24"></span>
+                            <div class="relative h-48 bg-gray-100 rounded overflow-hidden">
+                                <div class="absolute inset-0 flex items-center justify-center p-2">
+                                    <img src="<?= BASE_URL ?>assets/<?= $tractor['photo_url'] ?>"
+                                        class="object-contain h-full w-full" alt="Tractor" />
                                 </div>
+
                                 <?php if ($lowStock): ?>
                                     <div class="absolute top-2 right-2">
                                         <span class="bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
@@ -148,6 +148,7 @@ try {
                                     </div>
                                 <?php endif; ?>
                             </div>
+
                             <div class="p-4 pb-0">
                                 <h2 class="text-lg font-semibold"><?php echo htmlspecialchars($tractor['name']); ?></h2>
                                 <div class="text-sm text-gray-500"><?php echo htmlspecialchars($tractor['brand']); ?></div>
