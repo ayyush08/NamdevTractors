@@ -1,7 +1,8 @@
 <?php include 'config.php' ?>
 
 <?php include 'db/db.php';
-
+$locale = 'en_IN';
+$fmt = new NumberFormatter($locale, NumberFormatter::CURRENCY);
 try {
     // Fetch featured tractor
     $featuredStmt = $pdo->query("SELECT * FROM tractors WHERE featured = 1 LIMIT 1");
@@ -61,7 +62,7 @@ try {
 
                             <div class="bg-green-700 p-3 rounded">
                                 <div class="text-green-200 text-sm">Price</div>
-                                <div class="text-xl font-bold">Rs. <?php echo $featuredTractor['price']; ?>
+                                <div class="text-xl font-bold"><?php echo $fmt->formatCurrency($featuredTractor['price'], 'INR') ; ?>
                                 </div>
                             </div>
 
@@ -135,7 +136,7 @@ try {
                                 </p>
                             </div>
                             <div class="p-4 pt-0 flex justify-between items-center mt-auto">
-                                <div class="text-xl font-bold text-green-600">Rs. <?php echo $formattedPrice; ?></div>
+                                <div class="text-xl font-bold text-green-600"><?php echo $fmt->formatCurrency($tractor['price'], 'INR') ; ?></div>
                                 <a href="tractor.php?id=<?= $tractor['id'] ?>"
                                     class="bg-green-800 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">
                                     View Details

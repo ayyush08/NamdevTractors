@@ -4,7 +4,8 @@
 // Get tractor ID from URL parameter
 $tractorId = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
-
+$locale = 'en_IN';
+$fmt = new NumberFormatter($locale, NumberFormatter::CURRENCY);
 try {
     if ($tractorId <= 0) {
         header("Location: index.php");
@@ -109,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
                         </h1>
 
                         <div class="text-3xl font-bold text-green-600 mb-4">
-                            Rs. <?php echo $tractor['price']; ?>
+                            <?php echo $fmt->formatCurrency($tractor['price'], 'INR') ; ?>
                         </div>
 
                         <p class="text-gray-700 mb-6">
@@ -156,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-gray-600">Price</span>
-                                <span class="font-medium text-gray-900">Rs. <?php echo $tractor['price'] ?></span>
+                                <span class="font-medium text-gray-900"> <?php echo $fmt->formatCurrency($tractor['price'], 'INR')  ?></span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-gray-600">Stock</span>

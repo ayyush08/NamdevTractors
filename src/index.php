@@ -5,6 +5,10 @@
 include './db/db.php'; // Include database connection
 require '../vendor/autoload.php';
 
+
+$locale = 'en_IN';
+$fmt = new NumberFormatter($locale, NumberFormatter::CURRENCY);
+
 try {
     $stmt = $pdo->query("SELECT * FROM tractors WHERE featured = 1");
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -44,7 +48,7 @@ try {
                             agricultural productivity.
                         </p>
                         <div class="flex flex-wrap gap-4 pt-2">
-                            <a href="<?=BASE_URL ?>tractor-list.php" class="btn-primary flex items-center gap-2">
+                            <a href="<?= BASE_URL ?>tractor-list.php" class="btn-primary flex items-center gap-2">
                                 Explore Models
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -55,7 +59,7 @@ try {
                             </a>
                             <a href="#products" class="btn-secondary flex items-center gap-2">
                                 Featured Models
-                               
+
                             </a>
                         </div>
                     </div>
@@ -92,7 +96,8 @@ try {
                         <?php $firstProduct = $products[0]; ?>
                         <div class="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-xl">
                             <a id="product-link" href="tractor.php?id=<?= $firstProduct['id'] ?>">
-                                <img id="product-image" src="<?= BASE_URL ?>/assets/<?= htmlspecialchars($firstProduct['photo_url']) ?>"
+                                <img id="product-image"
+                                    src="<?= BASE_URL ?>/assets/<?= htmlspecialchars($firstProduct['photo_url']) ?>"
                                     alt="<?= htmlspecialchars($firstProduct['name']) ?>"
                                     class="w-full h-full object-cover " />
                             </a>
@@ -104,7 +109,7 @@ try {
                                     <?= htmlspecialchars($firstProduct['horsepower']) ?> Horsepower
                                 </p>
                                 <p id="product-price" class="text-green-400 font-medium">
-                                    Rs. <?= htmlspecialchars($firstProduct['price']) ?>
+                                    <?= htmlspecialchars($fmt->formatCurrency($firstProduct['price'], 'INR')) ?>
                                 </p>
                             </div>
                         </div>
@@ -168,7 +173,8 @@ try {
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="p-6 rounded-xl bg-white shadow-sm shadow-green-400 hover:shadow-lg transition-shadow duration-300 ">
+                    <div
+                        class="p-6 rounded-xl bg-white shadow-sm shadow-green-400 hover:shadow-lg transition-shadow duration-300 ">
                         <div
                             class="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-green-100 text-green-600 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -186,7 +192,8 @@ try {
                         <p class="text-gray-600">Equipped with the latest innovations for improved performance and fuel
                             efficiency.</p>
                     </div>
-                    <div class="p-6 rounded-xl bg-white shadow-sm shadow-green-400 hover:shadow-lg transition-shadow duration-300">
+                    <div
+                        class="p-6 rounded-xl bg-white shadow-sm shadow-green-400 hover:shadow-lg transition-shadow duration-300">
                         <div
                             class="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-green-100 text-green-600 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -201,7 +208,8 @@ try {
                         <p class="text-gray-600">Manufactured with premium materials to ensure longevity and
                             reliability.</p>
                     </div>
-                    <div class="p-6 rounded-xl bg-white shadow-sm shadow-green-400 hover:shadow-lg transition-shadow duration-300">
+                    <div
+                        class="p-6 rounded-xl bg-white shadow-sm shadow-green-400 hover:shadow-lg transition-shadow duration-300">
                         <div
                             class="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-green-100 text-green-600 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -221,7 +229,8 @@ try {
                         <p class="text-gray-600">Designed for simple servicing with readily available parts and support.
                         </p>
                     </div>
-                    <div class="p-6 rounded-xl bg-white shadow-sm shadow-green-400 hover:shadow-lg transition-shadow duration-300">
+                    <div
+                        class="p-6 rounded-xl bg-white shadow-sm shadow-green-400 hover:shadow-lg transition-shadow duration-300">
                         <div
                             class="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-green-100 text-green-600 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -245,7 +254,8 @@ try {
                             <h3 class="text-2xl md:text-3xl font-bold mb-4">Ready to upgrade your farming equipment?
                             </h3>
                             <p class="text-white/90 mb-6 lg:mb-0">
-                                Experience the difference with our premium tractors. Book a demo today and see for yourself
+                                Experience the difference with our premium tractors. Book a demo today and see for
+                                yourself
                                 how our machines can transform your agricultural operations.
                             </p>
                         </div>
@@ -295,12 +305,14 @@ try {
 
                 // Update product content dynamically
                 const { name, category, power, image, description, price, id } = btn.dataset;
-
+                const formatPrice = (price) => {
+                    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(price);
+                };
                 productImage.src = `<?= BASE_URL ?>/assets/${image}`;;
                 productImage.alt = name;
                 productName.textContent = name;
                 productSpecs.textContent = `${power} Horsepower`;
-                productPrice.textContent = `Rs. ${price}`;
+                productPrice.textContent = formatPrice(price);
                 productTitle.textContent = name;
                 productDescription.textContent = description;
 
