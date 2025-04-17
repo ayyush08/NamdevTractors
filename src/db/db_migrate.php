@@ -52,7 +52,6 @@ try {
             stock INT DEFAULT 0,
             owner_id INT NOT NULL DEFAULT 1,
             photo_url VARCHAR(255) DEFAULT 'assets/default.jpg',
-            image_name VARCHAR(255) DEFAULT '',
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             INDEX idx_created (created_at),
             featured BOOLEAN DEFAULT FALSE
@@ -64,14 +63,21 @@ try {
     $stmt = $pdo->query("SELECT COUNT(*) FROM tractors");
     if ($stmt->fetchColumn() == 0) {
         $pdo->exec("
-            INSERT INTO tractors (name, brand, description, price, horsepower, stock, owner_id, photo_url, image_name, featured) VALUES
-                ('John Deere 5130M', 'John Deere', '4-cylinder 4.5L PowerTech™, 3700kg lift, ISOBUS, JDLink™', 3250000.00, 130, 4, 1, 'john_deere_5130m.jpg', 'john-deere-5130m', 0),
-                ('Swaraj 855 FE', 'Swaraj', '3-cylinder, 3478CC, 2000kg lift, Oil-immersed brakes', 865000.00, 48, 6, 1, 'swaraj_855_fe.jpg', 'swaraj-855-fe', 0),
-                ('Mahindra 575 DI XP Plus', 'Mahindra', '4-cylinder, 2979CC, 1500kg lift, 6-year warranty', 708000.00, 47, 8, 1, 'mahindra_575_di_xp_plus.jpg', 'mahindra-575-di-xp-plus', 1),
-                ('New Holland 3630 TX Super Plus', 'New Holland', '3-cylinder, 2991CC, 1700kg lift, Power Steering', 920000.00, 50, 5, 1, 'new_holland_3630_tx_super_plus.jpg', 'new-holland-3630-tx-super-plus', 0),
-                ('Sonalika RX 745 III Sikander', 'Sonalika', '3-cylinder, 3067CC, 2000kg lift, Oil-immersed brakes', 755000.00, 50, 7, 1, 'sonalika_rx_745_iii_sikander.jpg', 'sonalika-rx-745-iii-sikander', 1),
-                ('Farmtrac 6050 Executive 4WD', 'Farmtrac', '4-cylinder, 1800kg lift, Power Steering', 820000.00, 50, 3, 1, 'farmtrac_6050_executive_4wd.jpg', 'farmtrac-6050-executive-4wd', 1);
-        ");
+    INSERT INTO tractors (name, brand, description, price, horsepower, stock, owner_id, photo_url, featured) VALUES
+        ('John Deere 5130M', 'John Deere', '4-cylinder 4.5L PowerTech™, 3700kg lift, ISOBUS, JDLink™', 3250000.00, 130, 4, 1, 'john_deere_5130m.jpg', 0),
+        ('Swaraj 855 FE', 'Swaraj', '3-cylinder, 3478CC, 2000kg lift, Oil-immersed brakes', 865000.00, 48, 6, 1, 'swaraj_855_fe.jpg', 0),
+        ('Mahindra 575 DI XP Plus', 'Mahindra', '4-cylinder, 2979CC, 1500kg lift, 6-year warranty', 708000.00, 47, 8, 1, 'mahindra_575_di_xp_plus.jpg',  1),
+        ('New Holland 3630 TX Super Plus', 'New Holland', '3-cylinder, 2991CC, 1700kg lift, Power Steering', 920000.00, 50, 5, 1, 'new_holland_3630_tx_super_plus.jpg',  0),
+        ('Sonalika RX 745 III Sikander', 'Sonalika', '3-cylinder, 3067CC, 2000kg lift, Oil-immersed brakes', 755000.00, 50, 7, 1, 'sonalika_rx_745_iii_sikander.jpg',  1),
+        ('Farmtrac 6050 Executive 4WD', 'Farmtrac', '4-cylinder, 1800kg lift, Power Steering', 820000.00, 50, 3, 1, 'farmtrac_6050_executive_4wd.jpg',  1),
+        ('Powertrac 434 Plus', 'Powertrac', '35 HP, 1600kg lift, Oil Immersed Brakes, Power/Mechanical Steering', 560000.00, 35, 5, 1, 'powertrac_434_plus.jpg', 0),
+        ('Powertrac 439 Plus Powerhouse', 'Powertrac', '45 HP, 1600kg lift, Oil Immersed Brakes, Power/Mechanical Steering', 610000.00, 45, 5, 1, 'powertrac_439_plus_powerhouse.jpg', 0),
+        ('Powertrac Euro 50 PH', 'Powertrac', '50 HP, 1800kg lift, Oil Immersed Disc Brakes, Power Steering', 675000.00, 50, 5, 1, 'powertrac_euro_50_ph.jpg', 0),
+        ('Powertrac Euro 50 Next', 'Powertrac', '52 HP, 2000kg lift, Multi Disc Oil Immersed Brakes, Balanced Power Steering', 720000.00, 52, 5, 1, 'powertrac_euro_50_next.jpg', 1),
+        ('Powertrac Euro 55 Next', 'Powertrac', '55 HP, 2000kg lift, Oil Immersed Multi Disc Brakes, Balanced Power Steering', 785000.00, 55, 5, 1, 'powertrac_euro_55_next.jpg', 1),
+        ('Powertrac Euro 42 Plus', 'Powertrac', '45 HP, 1600kg lift, Oil Immersed Brakes, Power/Mechanical Steering', 590000.00, 45, 5, 1, 'powertrac_euro_42_plus.jpg', 0)
+");
+
         echo "New tractor data inserted.\n";
     } else {
         echo "Tractor table already contains data.\n";
@@ -91,7 +97,7 @@ try {
 ");
     echo "Table `bookings` created successfully.\n";
 
-    
+
 
 } catch (PDOException $e) {
     die("Migration failed: " . $e->getMessage());

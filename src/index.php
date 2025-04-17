@@ -22,11 +22,11 @@ try {
     <link rel="stylesheet" href="./output.css">
 </head>
 
-<body class="bg-white text-gray-900">
+<body class=" text-gray-900 ">
     <?php include './includes/header.php'; ?>
     <main>
         <!-- Hero Section -->
-        <section class="relative overflow-hidden bg-gradient-to-b from-tractor-50 to-white py-16 md:py-20">
+        <section class="relative overflow-hidden bg-gradient-to-l from-green-200 to-white py-16 md:py-20">
             <div class="container mx-auto px-4">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div class="space-y-6 animate-fade-in">
@@ -62,7 +62,7 @@ try {
 
                     <div class="relative h-[300px] md:h-[450px] lg:h-[600px] animate-fade-in w-full"
                         style="animation-delay: 0.2s">
-                        <img src="<?= BASE_URL ?>/assets/<?= $products[2]['photo_url']?>" alt="Tractor"
+                        <img src="<?= BASE_URL ?>/assets/heroimg.jpg" alt="Tractor"
                             class="absolute  rounded-lg shadow-green-400 shadow-xl transform hover:scale-[1.02] transition-transform duration-300 w-full h-full">
                         </img>
                     </div>
@@ -74,7 +74,7 @@ try {
         </section>
 
         <!-- Product Showcase -->
-        <section id="products" class="py-16 md:py-20 bg-white">
+        <section id="products" class="py-16 md:py-20 bg-white  to-white">
             <div class="container mx-auto px-4">
                 <div class="text-center max-w-3xl mx-auto mb-16">
                     <span
