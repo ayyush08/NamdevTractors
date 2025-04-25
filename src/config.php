@@ -1,5 +1,5 @@
 <?php
-define('APP_NAME', 'NamDev Tractors');
+define('APP_NAME', 'NamDevTractors');
 define('BASE_URL', '/NamdevTractors/src/');
 
 ?>

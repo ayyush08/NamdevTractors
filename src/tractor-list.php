@@ -4,11 +4,10 @@
 $locale = 'en_IN';
 $fmt = new NumberFormatter($locale, NumberFormatter::CURRENCY);
 try {
-    // Fetch featured tractor
     $featuredStmt = $pdo->query("SELECT * FROM tractors WHERE featured = 1 LIMIT 1");
     $featuredTractor = $featuredStmt->fetch(PDO::FETCH_ASSOC);
 
-    // Fetch all tractors for listing
+    
     $tractorsStmt = $pdo->query("SELECT * FROM tractors");
     $tractors = $tractorsStmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -31,11 +30,9 @@ try {
 </head>
 
 <body class="min-h-screen bg-gray-50">
-    <!-- Header -->
     <?php include 'includes/header.php' ?>
 
     <main>
-        <!-- Featured Tractor Section -->
         <div class="bg-green-600 text-white">
             <div class="container mx-auto px-4 py-12">
                 <div class="flex flex-col md:flex-row items-center">
@@ -81,9 +78,7 @@ try {
             </div>
         </div>
 
-        <!-- Tractor Listing Section -->
         <div class="container mx-auto px-4 py-8">
-            <!-- Heading -->
             <div class="mb-8">
                 <h1 class="text-3xl font-bold text-gray-900">Browse Our Tractors</h1>
                 <p class="text-gray-600 mt-2">
@@ -91,7 +86,6 @@ try {
                 </p>
             </div>
 
-            <!-- Tractor Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 <?php
                 try {
@@ -159,7 +153,7 @@ try {
         </div>
     </main>
 
-    <!-- Footer -->
+
     <?php include 'includes/footer.php' ?>
 
 

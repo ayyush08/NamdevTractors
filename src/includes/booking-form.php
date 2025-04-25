@@ -30,7 +30,6 @@ try {
 
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Validate input
         $tractorId = (int) $_POST['tractor_id'];
         $name = htmlspecialchars($_POST['name']);
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
@@ -41,7 +40,6 @@ try {
         if ($pickupDate && strtotime($pickupDate) <= strtotime(date('Y-m-d'))) {
             throw new Exception("Please pick a date after today.");
         }
-        // Get tractor and owner details
         $stmt = $pdo->prepare("
             SELECT t.*, o.email AS owner_email 
             FROM tractors t
@@ -74,7 +72,7 @@ try {
                 "Shop Address: 123 Tractor Lane, YourCity<br><br>Thank you!"
         ]);
 
-        // Owner notification email
+
         $resend->emails->send([
             'from' => 'namdevtractors@inkognito.tech',
             'to' => $tractor['owner_email'],
@@ -87,7 +85,6 @@ try {
 
         ]);
 
-        // Redirect to success page or show success message
         $booking_success = true;
     }
 
@@ -163,40 +160,7 @@ try {
         <?php endif; ?>
     </div>
     <?php include './footer.php'; ?>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const bookingForm = document.querySelector('form[method="POST"]');
-            const submitBtn = bookingForm?.querySelector('button[type="submit"]');
-            const successMessage = document.querySelector('.text-2xl');
-            const errorMessage = document.querySelector('.bg-red-100');
-
-            if (bookingForm && submitBtn) {
-                bookingForm.addEventListener('submit', () => {
-                    submitBtn.disabled = true;
-                    submitBtn.textContent = 'Booking...';
-                });
-            }
-
-            // Smooth scroll to error/success message
-            if (successMessage) {
-                successMessage.parentElement.scrollIntoView({ behavior: 'smooth' });
-                fadeIn(successMessage.parentElement);
-            }
-
-            if (errorMessage) {
-                errorMessage.scrollIntoView({ behavior: 'smooth' });
-                fadeIn(errorMessage);
-            }
-
-            function fadeIn(el) {
-                el.style.opacity = 0;
-                el.style.transition = 'opacity 0.6s ease-in-out';
-                requestAnimationFrame(() => {
-                    el.style.opacity = 1;
-                });
-            }
-        });
-    </script>
+   
 
 </body>
 

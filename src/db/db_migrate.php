@@ -6,18 +6,15 @@ $username = 'root';
 $password = '';
 
 try {
-    // Connect to MySQL server
     $pdo = new PDO("mysql:host=$host", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Create database if not exists
     $pdo->exec("CREATE DATABASE IF NOT EXISTS `$dbname`");
     echo "Database `$dbname` created or already exists.\n";
 
-    // Switch to the database
     $pdo->exec("USE `$dbname`");
 
-    // Create `owners` table
+
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS owners (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -26,7 +23,7 @@ try {
     ");
     echo "Table `owners` created successfully.\n";
 
-    // Create `bookings` table
+    
 
     $stmt = $pdo->query("SELECT COUNT(*) FROM owners");
     if ($stmt->fetchColumn() == 0) {
@@ -37,7 +34,19 @@ try {
     } else {
         echo "Owners table already contains data.\n";
     }
-
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS tractor_reviews (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            tractor_id INT NOT NULL,
+            reviewer_name VARCHAR(255) NOT NULL,
+            reviewer_email VARCHAR(255) NOT NULL,
+            rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+            review_text TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (tractor_id) REFERENCES tractors(id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    ");
+    echo "Table `tractor_reviews` created successfully.\n";
 
     // Seed initial data for `tractors` and `owners`
     // Create `tractors` table (updated with image_name)

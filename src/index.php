@@ -77,7 +77,7 @@ try {
             <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
         </section>
 
-        <!-- Product Showcase -->
+
         <section id="products" class="py-16 md:py-20 bg-white  to-white">
             <div class="container mx-auto px-4">
                 <div class="text-center max-w-3xl mx-auto mb-16">
@@ -126,7 +126,7 @@ try {
 
                             </div>
 
-                            <!-- Product Buttons -->
+                    
                             <div class="space-y-4">
                                 <h4 class="text-lg font-semibold text-gray-900">Browse Models</h4>
                                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -155,7 +155,6 @@ try {
         </section>
 
 
-        <!-- Features Section -->
         <section id="features" class="py-16 md:py-24 bg-gray-50">
             <div class="container mx-auto px-4">
                 <div class="text-center max-w-3xl mx-auto mb-16">
@@ -273,14 +272,9 @@ try {
 
     </main>
 
-    <!-- Footer -->
     <?php include './includes/footer.php' ?>
 
-    <!-- JavaScript -->
     <script>
-        // Mobile Menu Toggle
-
-        // Product Showcase
         const productBtns = document.querySelectorAll('.product-btn');
         const productImage = document.getElementById('product-image');
         const productName = document.getElementById('product-name');
@@ -293,17 +287,17 @@ try {
         productBtns.forEach(btn => {
             btn.addEventListener('click', () => {
 
-                // Remove active class from all buttons
+                
                 productBtns.forEach(b => {
                     b.classList.remove('border-green-600', 'bg-green-50');
                     b.classList.add('border-gray-200', 'hover:border-green-300');
                 });
 
-                // Add active class to the clicked button
+                
                 btn.classList.remove('border-gray-200', 'hover:border-green-300');
                 btn.classList.add('border-green-600', 'bg-green-50');
 
-                // Update product content dynamically
+                
                 const { name, category, power, image, description, price, id } = btn.dataset;
                 const formatPrice = (price) => {
                     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(price);
@@ -316,7 +310,7 @@ try {
                 productTitle.textContent = name;
                 productDescription.textContent = description;
 
-                // Update the anchor link with the product's id dynamically
+                
                 productLink.href = `tractor.php?id=${id}`;
             });
         });

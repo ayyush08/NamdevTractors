@@ -36,8 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
     $quantity = isset($_POST['quantity']) ? (int) $_POST['quantity'] : 1;
 
     if ($quantity > 0 && $quantity <= $tractor['stock']) {
-        // In a real application, you would process the purchase here
-        // For now, just show a success message
         $message = '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
             <strong class="font-bold">Success!</strong>
             <span class="block sm:inline"> Your order for ' . $quantity . ' ' . htmlspecialchars($tractor['name']) . ' has been placed.</span>
@@ -168,51 +166,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['purchase'])) {
                         </ul>
                     </div>
 
-                    <!-- Features -->
+             
 
                 </div>
             </div>
         </div>
-        <!-- Related Tractors -->
+    
 
     </main>
 
     <!-- Footer -->
     <?php include 'includes/footer.php' ?>
 
-    <script>
-        // Quantity selector functionality
-        document.addEventListener('DOMContentLoaded', function () {
-            const quantityInput = document.getElementById('quantity');
-            const decreaseBtn = document.getElementById('decrease-qty');
-            const increaseBtn = document.getElementById('increase-qty');
-            const maxStock = <?php echo $tractor['stock']; ?>;
 
-            decreaseBtn.addEventListener('click', function () {
-                let currentValue = parseInt(quantityInput.value);
-                if (currentValue > 1) {
-                    quantityInput.value = currentValue - 1;
-                }
-            });
-
-            increaseBtn.addEventListener('click', function () {
-                let currentValue = parseInt(quantityInput.value);
-                if (currentValue < maxStock) {
-                    quantityInput.value = currentValue + 1;
-                }
-            });
-
-            // Ensure quantity is within valid range when manually entered
-            quantityInput.addEventListener('change', function () {
-                let currentValue = parseInt(quantityInput.value);
-                if (isNaN(currentValue) || currentValue < 1) {
-                    quantityInput.value = 1;
-                } else if (currentValue > maxStock) {
-                    quantityInput.value = maxStock;
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>

@@ -18,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $owner = $stmt->fetch(PDO::FETCH_ASSOC);
 
     try {
-        // Send contact form submission email to owner
         $resend->emails->send([
             'from' => 'namdevtractors@inkognito.tech',
             'to' => $owner['email'],
@@ -42,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p>Best regards,<br>NamDev Tractors</p>"
         ]);
 
-        // Set success flag
+        
         $contact_success = true;
 
     } catch (Exception $e) {

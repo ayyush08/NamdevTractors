@@ -9,7 +9,6 @@
                 </a>
             </div>
 
-            <!-- Desktop Navigation -->
             <div class="hidden md:flex space-x-8">
                 <a href="<?= BASE_URL ?>index.php"
                     class="text-gray-700 hover:text-green-600 font-medium transition-colors">Home</a>
