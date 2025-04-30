@@ -13,13 +13,10 @@
                 <p class="text-gray-400 ">
                     Providing premium tractors and exceptional services to farmers and landowners.
                 </p>
-
             </div>
-
-
             <div class="border-t border-gray-800  pt-8 text-center">
                 <p class="text-gray-400">
-                    &copy; <span id="current-year"></span> All rights reserved.
+                Address: Namdev Tractors, Opp. BSNL Exchange, Chautala Road, Mandi Dabwali (Sirsa) Harayana,<br> All rights reserved.
                 </p>
             </div>
         </div>

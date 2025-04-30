@@ -37,6 +37,10 @@ try {
         $pickupDate = !empty($_POST['preferred_pickup_date']) ? $_POST['preferred_pickup_date'] : null;
 
 
+        if(strlen($phone) !== 10) {
+            throw new Exception("Please enter a valid phone number.");
+        }
+
         if ($pickupDate && strtotime($pickupDate) <= strtotime(date('Y-m-d'))) {
             throw new Exception("Please pick a date after today.");
         }

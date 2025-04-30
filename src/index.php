@@ -20,7 +20,7 @@ try {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TractorLand - Premium Agricultural Equipment</title>
+    <title>NamdevTractors - Premium Tractors</title>
     <meta name="description"
         content="Discover our exceptional range of high-performance tractors designed to elevate your agricultural productivity." />
     <link rel="stylesheet" href="./output.css">

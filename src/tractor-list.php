@@ -22,7 +22,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TractorTrailblazer - Find Your Perfect Tractor</title>
+    <title>NamdevTractors - Find Your Perfect Tractor</title>
     <meta name="description"
         content="Browse our collection of high-quality tractors for farming, landscaping, and industrial needs.">
     <link rel="stylesheet" href="./output.css">
